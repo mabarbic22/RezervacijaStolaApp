@@ -47,11 +47,12 @@ namespace RezervacijaStolaApp.Models.Data
 
 
             modelBuilder.Entity<Desk>().HasData(
-                new Desk { Id = 1, DeskNumber = 124, RoomFloorId = 1 },
-                new Desk { Id = 2, DeskNumber = 224, RoomFloorId = 2 },
-                new Desk { Id = 3, DeskNumber = 098, RoomFloorId = 2 },
-                new Desk { Id = 4, DeskNumber = 13, RoomFloorId = 3 },
-                new Desk { Id = 5, DeskNumber = 295, RoomFloorId = 4 }
+                new Desk { Id = 1, DeskNumber = 12, RoomFloorId = 1, WoorkToolsId = 1 },
+                new Desk { Id = 2, DeskNumber = 51, RoomFloorId = 2, WoorkToolsId = 2 },
+                new Desk { Id = 3, DeskNumber = 52, RoomFloorId = 2, WoorkToolsId = 3 },
+                new Desk { Id = 4, DeskNumber = 101, RoomFloorId = 3, WoorkToolsId = 4 },
+                new Desk { Id = 5, DeskNumber = 201, RoomFloorId = 4, WoorkToolsId = 2 },
+                new Desk { Id = 6, DeskNumber = 207, RoomFloorId = 4, WoorkToolsId = 3 }
                 );
 
 
