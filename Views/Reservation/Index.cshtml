@@ -1,10 +1,10 @@
 @model IEnumerable<RezervacijaStolaApp.Models.Data.Reservation>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista rezervacija";
 }
 
-<h1>Index</h1>
+<h1>Lista rezervacija</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -14,15 +14,9 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ReservationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
+            </th>            
             <th>
                 @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeskId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Desk)
@@ -34,24 +28,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(model => item.ReservationDate)
+               <label>@(item.ReservationDate.ToShortDateString())</label>
             </td>
             <td>
-                @Html.DisplayFor(model => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.User.Name + " " + item.User.Surname)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.DeskId)
+                <label>@(item.User.Name + " " + item.User.Surname)</label>
             </td>
             <td>
                 @Html.DisplayFor(model => item.Desk.DeskNumber)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Obriši</a>
             </td>
         </tr>
 }
