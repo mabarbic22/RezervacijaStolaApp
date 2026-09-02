@@ -11,7 +11,9 @@ namespace RezervacijaStolaApp.Models.Data
        
         [Display(Name="Kat sobe")]
         public int RoomFloorId { get; set; }
-        public List<WorkTools> WorkTools { get; set; }
+        public RoomFloor RoomFloor { get; set; }
+        private int WoorkToolsId {get; set; }
+        public WorkTools WorkTools { get; set; }
         public List<Reservation> ListOfReservations { get; set; }
     }
 }

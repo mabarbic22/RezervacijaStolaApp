@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RezervacijaStolaApp.Models.Data;
+using System.Linq;
 
 public class ReservationController : Controller
 {
@@ -15,7 +16,7 @@ public class ReservationController : Controller
     // GET: RESERVATIONS
     public async Task<IActionResult> Index()    
     {
-        return View(await _context.Reservations.Include(r=>r.User).Include(r=>r.Desk).ToListAsync());
+        return View(await _context.Reservations.OrderByDescending(r => r.ReservationDate).Include(r=>r.User).Include(r=>r.Desk).ToListAsync());
     }
 
     // GET: RESERVATIONS/Details/5
@@ -26,7 +27,7 @@ public class ReservationController : Controller
             return NotFound();
         }
 
-        var reservation = await _context.Reservations
+        var reservation = await _context.Reservations.Include(r=>r.User).Include(r=>r.Desk)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (reservation == null)
         {
