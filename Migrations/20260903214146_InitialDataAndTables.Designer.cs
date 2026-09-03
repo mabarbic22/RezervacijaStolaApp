@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RezervacijaStolaApp.Models.Data;
 
@@ -10,9 +11,11 @@ using RezervacijaStolaApp.Models.Data;
 namespace RezervacijaStolaApp.Migrations
 {
     [DbContext(typeof(DeskReservationDataContext))]
-    partial class DeskReservationDataContextModelSnapshot : ModelSnapshot
+    [Migration("20260903214146_InitialDataAndTables")]
+    partial class InitialDataAndTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.11");
@@ -382,56 +385,21 @@ namespace RezervacijaStolaApp.Migrations
                             Id = 12,
                             DeskId = 40,
                             ReservationDate = new DateTime(2026, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 6
+                            UserId = 11
                         },
                         new
                         {
                             Id = 13,
                             DeskId = 26,
                             ReservationDate = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 9
+                            UserId = 18
                         },
                         new
                         {
                             Id = 14,
-                            DeskId = 35,
-                            ReservationDate = new DateTime(2026, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 4
-                        },
-                        new
-                        {
-                            Id = 15,
-                            DeskId = 7,
-                            ReservationDate = new DateTime(2026, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 3
-                        },
-                        new
-                        {
-                            Id = 16,
                             DeskId = 33,
-                            ReservationDate = new DateTime(2026, 10, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 2
-                        },
-                        new
-                        {
-                            Id = 17,
-                            DeskId = 12,
-                            ReservationDate = new DateTime(2026, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 9
-                        },
-                        new
-                        {
-                            Id = 18,
-                            DeskId = 4,
-                            ReservationDate = new DateTime(2026, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 7
-                        },
-                        new
-                        {
-                            Id = 19,
-                            DeskId = 9,
-                            ReservationDate = new DateTime(2026, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 1
+                            ReservationDate = new DateTime(2026, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 27
                         });
                 });
 

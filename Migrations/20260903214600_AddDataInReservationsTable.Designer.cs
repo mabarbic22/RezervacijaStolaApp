@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RezervacijaStolaApp.Models.Data;
 
@@ -10,9 +11,11 @@ using RezervacijaStolaApp.Models.Data;
 namespace RezervacijaStolaApp.Migrations
 {
     [DbContext(typeof(DeskReservationDataContext))]
-    partial class DeskReservationDataContextModelSnapshot : ModelSnapshot
+    [Migration("20260903214600_AddDataInReservationsTable")]
+    partial class AddDataInReservationsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.11");
