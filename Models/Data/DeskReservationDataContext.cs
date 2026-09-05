@@ -32,6 +32,11 @@ namespace RezervacijaStolaApp.Models.Data
 
             modelBuilder.Entity<Reservation>().Property(r => r.UserId).IsRequired();
             modelBuilder.Entity<Reservation>().Property(r => r.DeskId).IsRequired();
+            modelBuilder.Entity<Reservation>().Property(r => r.ReservationDate).HasColumnType("date");
+            // Postavljanje kombinacije DeskId i datum rezervacije na UNIQUE kako se ne bi događali zapisi sa istim kombinacijama stola i datuma
+            modelBuilder.Entity<Reservation>()
+                .HasIndex(r => new { r.DeskId, r.ReservationDate })
+                .IsUnique();
 
 
 
@@ -164,7 +169,8 @@ namespace RezervacijaStolaApp.Models.Data
                 new Reservation { Id = 16, DeskId = 33, UserId = 2, ReservationDate = new DateTime(2026, 10, 25) },
                 new Reservation { Id = 17, DeskId = 12, UserId = 9, ReservationDate = new DateTime(2026, 09, 05) },
                 new Reservation { Id = 18, DeskId = 4, UserId = 7, ReservationDate = new DateTime(2026, 08, 05) },
-                new Reservation { Id = 19, DeskId = 9, UserId = 1, ReservationDate = new DateTime(2026, 08, 05) }
+                new Reservation { Id = 19, DeskId = 9, UserId = 1, ReservationDate = new DateTime(2026, 08, 01) },
+                new Reservation { Id = 20, DeskId = 24, UserId = 7, ReservationDate = new DateTime(2026, 12, 15) }
                 );
         }
     }

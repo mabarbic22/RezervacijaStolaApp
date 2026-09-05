@@ -1,12 +1,12 @@
 @model RezervacijaStolaApp.Models.Data.Reservation
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Uredi rezervaciju";
 }
 
-<h1>Edit</h1>
+<h1>Uredi rezervaciju</h1>
 
-<h4>Reservation</h4>
+@* <h4>Reservation</h4> *@
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,40 +15,40 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="ReservationDate" class="control-label"></label>
-                <input asp-for="ReservationDate" class="form-control" />
+                <input asp-for="ReservationDate" type="date" class="form-control" asp-format="{0:yyyy-MM-dd}" />
                 <span asp-validation-for="ReservationDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
+                <label for="UserId" class="control-label">Ime i prezime:</label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.Users">
+                    <option value="">-- Odaberite --</option>
+                </select>
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="User" class="control-label"></label>
-                <input asp-for="User" class="form-control" />
-                <span asp-validation-for="User" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeskId" class="control-label"></label>
-                <input asp-for="DeskId" class="form-control" />
+                <label asp-for="DeskId" class="control-label">Stol:</label>
+                <select asp-for="DeskId" class="form-control" asp-items="ViewBag.Desks">
+                    <option value="">-- Odaberite --</option>
+                </select>
                 <span asp-validation-for="DeskId" class="text-danger"></span>
             </div>
+            <br />
+            <br />
             <div class="form-group">
-                <label asp-for="Desk" class="control-label"></label>
-                <input asp-for="Desk" class="form-control" />
-                <span asp-validation-for="Desk" class="text-danger"></span>
+                <input type="submit" value="Spremi" class="btn btn-primary" />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Povratak</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }   
 }
+

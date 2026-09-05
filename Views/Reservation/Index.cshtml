@@ -14,7 +14,7 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ReservationDate)
-            </th>            
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.User)
             </th>
@@ -25,23 +25,35 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-               <label>@(item.ReservationDate.ToShortDateString())</label>
-            </td>
-            <td>
-                <label>@(item.User.Name + " " + item.User.Surname)</label>
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Desk.DeskNumber)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Obriši</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                @* <td>
+                    <label>@(item.ReservationDate.ToShortDateString())</label>
+                </td> *@
+                <td>
+                    @Html.DisplayFor(model => item.ReservationDate)
+                </td>
+                <td>
+                    <label>@(item.User.Name + " " + item.User.Surname)</label>
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Desk.DeskNumber)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Obriši</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+
+@if (TempData["AlertMessage"] != null)
+{
+    <script>
+        alert('@TempData["AlertMessage"]');
+    </script>
+}

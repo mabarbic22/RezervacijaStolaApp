@@ -4,6 +4,7 @@ namespace RezervacijaStolaApp.Models.Data
 {
     public class User
     {
+        [ScaffoldColumn(false)]
         public int Id { get; set; }
 
         [Display(Name="Ime")]

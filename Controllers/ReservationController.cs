@@ -1,5 +1,7 @@
-
+﻿
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using RezervacijaStolaApp.Models.Data;
 using System.Linq;
@@ -29,10 +31,23 @@ public class ReservationController : Controller
 
         var reservation = await _context.Reservations.Include(r=>r.User).Include(r=>r.Desk)
             .FirstOrDefaultAsync(m => m.Id == id);
+
         if (reservation == null)
         {
             return NotFound();
         }
+        
+        var roomFloor = await _context.RoomFloor.FirstOrDefaultAsync(r => r.Id == reservation.Desk.RoomFloorId);
+
+        if(roomFloor == null)
+        {
+            return NotFound();
+        }
+
+        //u tablici reservations nemamo informaciju o katu na kojem se soba nalazi pa onda dodajemo ovim korakom podatke gdje je soba. 
+        //ovo bi trebalo doraaditi na način da se u tablici odmah definira veza pa se ovaj korak preskoči
+        reservation.Desk.RoomFloor = roomFloor;
+
 
         return View(reservation);
     }
@@ -72,6 +87,20 @@ public class ReservationController : Controller
         {
             return NotFound();
         }
+
+        ViewBag.Users = new SelectList(
+            _context.Users.Select(u => new { Id = u.Id, FullName = u.Name + " " + u.Surname }).ToList(),
+            "Id",
+            "FullName"
+        );
+
+        ViewBag.Desks = new SelectList(
+           _context.Desks.Select(d => new { Id = d.Id, DeskNumber = d.DeskNumber + " - " + d.RoomFloor.FloorDescription}).ToList(),
+           "Id",
+           "DeskNumber"
+       );
+
+
         return View(reservation);
     }
 
@@ -87,6 +116,10 @@ public class ReservationController : Controller
             return NotFound();
         }
 
+        // Ručno uklanjamo navigacijske objekte iz validacije forme
+        ModelState.Remove("Desk");
+        ModelState.Remove("User");
+
         if (ModelState.IsValid)
         {
             try
@@ -94,17 +127,19 @@ public class ReservationController : Controller
                 _context.Update(reservation);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateException sqliteEx)
             {
-                if (!ReservationExists(reservation.Id))
+                if (sqliteEx.InnerException != null)
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
+                    if (sqliteEx.InnerException.Message.Contains("UNIQUE constraint failed"))
+                    {
+                        // Spremamo poruku u TempData kako bi prikazali na ekranu a ne da nas preusmjeri na novu stranicu
+                        TempData["AlertMessage"] = "Stol je zauzet za navedeni daatum!";
+                        //return NotFound("Odabrana soba je zauzeta za traženi datum.");
+                    }
                 }
             }
+
             return RedirectToAction(nameof(Index));
         }
         return View(reservation);
@@ -124,6 +159,27 @@ public class ReservationController : Controller
         {
             return NotFound();
         }
+
+        //ViewBag.Users = new SelectList(
+        //    _context.Users.Select(u => new { Id = u.Id, FullName = u.Name + " " + u.Surname }).ToList(),
+        //    "Id",
+        //    "FullName"
+        //);
+
+        var userList = _context.Users.Where(u => u.Id == reservation.UserId).ToList();
+        var selectedUser = userList.Select(u => new {
+            Id= u.Id,
+            FullName = u.Name + " " + u.Surname
+        }).ToList();
+        ViewBag.User = new SelectList(selectedUser, "Id", "FullName");
+
+
+        var deskList = _context.Desks.Where(d => d.Id == reservation.DeskId).ToList();
+        var selectedDesk = deskList.Select(d => new{
+            Id = d.Id,
+            DeskNumber = d.DeskNumber
+        }).ToList();
+        ViewBag.Desks = new SelectList(selectedDesk,"Id","DeskNumber");
 
         return View(reservation);
     }

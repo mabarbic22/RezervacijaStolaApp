@@ -1,52 +1,47 @@
 @model RezervacijaStolaApp.Models.Data.Reservation
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detaiji rezervacije";
 }
 
-<h1>Details</h1>
+<h1>Detalji rezervacije</h1>
 
 <div>
-    <h4>Reservation</h4>
+    @* <h4>Rezervacija </h4> *@
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ReservationDate)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ReservationDate)
         </dd>
     </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
+    <dl class="row">
+        <dt class="col-sm-2">
+            <strong>Rezervirao/la</strong>
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
+        <dd class="col-sm-10">
+            <span>@Html.DisplayFor(model => model.User.Name)</span>
+            <span>@Html.DisplayFor(model => model.User.Surname)</span>
+            <br />
+            <span>@Html.DisplayFor(model => model.User.MailAdress)</span>
+            <br />
+            <span>@Html.DisplayFor(model => model.User.CellPhoneNumber)</span>
         </dd>
     </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
+    <dl class="row">
+        <dt class="col-sm-2">
+            <strong>Radno mjesto</strong>
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeskId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeskId)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Desk)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Desk)
+        <dd class="col-sm-10">
+            <span>Broj stola: @Html.DisplayFor(model => model.Desk.DeskNumber)</span>
+            <br />
+            <span>Kat: @Html.DisplayFor(model => model.Desk.RoomFloor.FloorDescription)</span>
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Uredi</a> |
+    <a asp-action="Index">Povratak</a>
 </div>

@@ -4,6 +4,7 @@ namespace RezervacijaStolaApp.Models.Data
 {
     public class Desk
     {
+        [ScaffoldColumn(false)]
         public int Id { get; set; }
         
         [Display(Name = "Oznaka stola")]
@@ -12,6 +13,8 @@ namespace RezervacijaStolaApp.Models.Data
         [Display(Name="Kat sobe")]
         public int RoomFloorId { get; set; }
         public RoomFloor RoomFloor { get; set; }
+
+        [ScaffoldColumn(false)]
         public int WoorkToolsId {get; set; }
         public WorkTools WorkTools { get; set; }
         public List<Reservation> ListOfReservations { get; set; }
